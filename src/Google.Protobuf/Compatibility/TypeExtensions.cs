@@ -51,7 +51,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static bool IsValueType(this Type target)
         {
-            return target.GetTypeInfo().IsValueType;
+            return target.GetType().IsValueType;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static bool IsAssignableFrom(this Type target, Type c)
         {
-            return target.GetTypeInfo().IsAssignableFrom(c.GetTypeInfo());
+            return target.GetType().IsAssignableFrom(c.GetType());
         }
 
         /// <summary>
@@ -72,13 +72,12 @@ namespace Google.Protobuf.Compatibility
             // GetDeclaredProperty only returns properties declared in the given type, so we need to recurse.
             while (target != null)
             {
-                var typeInfo = target.GetTypeInfo();
-                var ret = typeInfo.GetDeclaredProperty(name);
-                if (ret != null && ((ret.CanRead && ret.GetMethod.IsPublic) || (ret.CanWrite && ret.SetMethod.IsPublic)))
+                var ret = target.GetProperty(name);
+                if (ret != null && ((ret.CanRead && ret.GetGetMethod().IsPublic) || (ret.CanWrite && ret.GetSetMethod().IsPublic)))
                 {
                     return ret;
                 }
-                target = typeInfo.BaseType;
+                target = target.BaseType;
             }
             return null;
         }
@@ -99,13 +98,12 @@ namespace Google.Protobuf.Compatibility
             // GetDeclaredMethod only returns methods declared in the given type, so we need to recurse.
             while (target != null)
             {
-                var typeInfo = target.GetTypeInfo();
-                var ret = typeInfo.GetDeclaredMethod(name);
+                var ret = target.GetMethod(name);
                 if (ret != null && ret.IsPublic)
                 {
                     return ret;
                 }
-                target = typeInfo.BaseType;
+                target = target.BaseType;
             }
             return null;
         }

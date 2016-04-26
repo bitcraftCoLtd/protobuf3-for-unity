@@ -47,7 +47,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static MethodInfo GetGetMethod(this PropertyInfo target)
         {
-            var method = target.GetMethod;
+            var method = target.GetGetMethod();
             return method != null && method.IsPublic ? method : null;
         }
 
@@ -57,7 +57,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static MethodInfo GetSetMethod(this PropertyInfo target)
         {
-            var method = target.SetMethod;
+            var method = target.GetSetMethod();
             return method != null && method.IsPublic ? method : null;
         }
     }

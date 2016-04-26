@@ -900,7 +900,7 @@ namespace Google.Protobuf
             }
 
             private static Dictionary<object, string> GetNameMapping(System.Type enumType) =>
-                enumType.GetTypeInfo().DeclaredFields
+                enumType.GetType().DeclaredFields
                     .Where(f => f.IsStatic)
                     .ToDictionary(f => f.GetValue(null),
                                   f => f.GetCustomAttributes<OriginalNameAttribute>()
