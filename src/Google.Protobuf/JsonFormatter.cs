@@ -536,7 +536,7 @@ namespace Google.Protobuf
         private void WriteFieldMask(StringBuilder builder, IMessage value)
         {
             IList paths = (IList) value.Descriptor.Fields[FieldMask.PathsFieldNumber].Accessor.GetValue(value);
-            AppendEscapedString(builder, string.Join(",", paths.Cast<string>().Select(ToCamelCase)));
+            AppendEscapedString(builder, string.Join(",", paths.Cast<string>().Select(s => ToCamelCase(s)).ToArray()));
         }
 
         private void WriteAny(StringBuilder builder, IMessage value)
