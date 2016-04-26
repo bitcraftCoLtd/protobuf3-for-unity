@@ -51,7 +51,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static bool IsValueType(this Type target)
         {
-            return target.GetType().IsValueType;
+            return target.IsValueType;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Google.Protobuf.Compatibility
         /// </summary>
         internal static bool IsAssignableFrom(this Type target, Type c)
         {
-            return target.GetType().IsAssignableFrom(c.GetType());
+            return target.IsAssignableFrom(c);
         }
 
         /// <summary>
