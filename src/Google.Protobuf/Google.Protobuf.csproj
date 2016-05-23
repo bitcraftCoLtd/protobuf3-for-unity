@@ -56,6 +56,7 @@
     <Compile Include="dotNet4.0\ReadOnlyDictionary.cs" />
     <Compile Include="FieldCodec.cs" />
     <Compile Include="FrameworkPortability.cs" />
+    <Compile Include="ICustomDiagnosticMessage.cs" />
     <Compile Include="IDeepCloneable.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="InvalidJsonException.cs" />
@@ -67,8 +68,8 @@
     <Compile Include="LimitedInputStream.cs" />
     <Compile Include="MessageExtensions.cs" />
     <Compile Include="MessageParser.cs" />
-    <Compile Include="Preconditions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtoPreconditions.cs" />
     <Compile Include="Reflection\Descriptor.cs" />
     <Compile Include="Reflection\DescriptorBase.cs" />
     <Compile Include="Reflection\DescriptorPool.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Reflection\FieldDescriptor.cs" />
     <Compile Include="Reflection\FieldType.cs" />
     <Compile Include="Reflection\FileDescriptor.cs" />
-    <Compile Include="Reflection\GeneratedCodeInfo.cs" />
+    <Compile Include="Reflection\GeneratedClrTypeInfo.cs" />
     <Compile Include="Reflection\IDescriptor.cs" />
     <Compile Include="Reflection\IFieldAccessor.cs" />
     <Compile Include="Reflection\MapFieldAccessor.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Reflection\MethodDescriptor.cs" />
     <Compile Include="Reflection\OneofAccessor.cs" />
     <Compile Include="Reflection\OneofDescriptor.cs" />
+    <Compile Include="Reflection\OriginalNameAttribute.cs" />
     <Compile Include="Reflection\PackageDescriptor.cs" />
     <Compile Include="Reflection\PartialClasses.cs" />
     <Compile Include="Reflection\ReflectionUtil.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="WellKnownTypes\DurationPartial.cs" />
     <Compile Include="WellKnownTypes\Empty.cs" />
     <Compile Include="WellKnownTypes\FieldMask.cs" />
+    <Compile Include="WellKnownTypes\FieldMaskPartial.cs" />
     <Compile Include="WellKnownTypes\SourceContext.cs" />
     <Compile Include="WellKnownTypes\Struct.cs" />
     <Compile Include="WellKnownTypes\TimeExtensions.cs" />
