@@ -1,6 +1,6 @@
 ﻿#region Copyright notice and license
 // Protocol Buffers - Google's data interchange format
-// Copyright 2015 Google Inc.  All rights reserved.
+// Copyright 2016 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
@@ -30,35 +30,16 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
-using System.Reflection;
-
-namespace Google.Protobuf.Compatibility
+namespace Google.Protobuf.TestProtos
 {
     /// <summary>
-    /// Extension methods for <see cref="PropertyInfo"/>, effectively providing
-    /// the familiar members from previous desktop framework versions while
-    /// targeting the newer releases, .NET Core etc.
+    /// A message with custom diagnostics (to test that they work).
     /// </summary>
-    internal static class PropertyInfoExtensions
+    public partial class ForeignMessage : ICustomDiagnosticMessage
     {
-        /// <summary>
-        /// Returns the public getter of a property, or null if there is no such getter
-        /// (either because it's read-only, or the getter isn't public).
-        /// </summary>
-        internal static MethodInfo GetGetMethod(this PropertyInfo target)
+        public string ToDiagnosticString()
         {
-            var method = target.GetMethod;
-            return method != null && method.IsPublic ? method : null;
-        }
-
-        /// <summary>
-        /// Returns the public setter of a property, or null if there is no such setter
-        /// (either because it's write-only, or the setter isn't public).
-        /// </summary>
-        internal static MethodInfo GetSetMethod(this PropertyInfo target)
-        {
-            var method = target.SetMethod;
-            return method != null && method.IsPublic ? method : null;
+            return $"{{ \"c\": {C}, \"@cInHex\": \"{C:x}\" }}";
         }
     }
 }

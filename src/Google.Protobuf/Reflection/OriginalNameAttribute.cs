@@ -32,43 +32,27 @@
 
 using System;
 
-namespace Google.Protobuf
+namespace Google.Protobuf.Reflection
 {
     /// <summary>
-    /// Helper methods for throwing exceptions
+    /// Specifies the original name (in the .proto file) of a named element,
+    /// such as an enum value.
     /// </summary>
-    public static class Preconditions
+    [AttributeUsage(AttributeTargets.Field)]
+    public class OriginalNameAttribute : Attribute
     {
         /// <summary>
-        /// Throws an ArgumentNullException if the given value is null, otherwise
-        /// return the value to the caller.
+        /// The name of the element in the .proto file.
         /// </summary>
-        public static T CheckNotNull<T>(T value, string name) where T : class
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(name);
-            }
-            return value;
-        }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Throws an ArgumentNullException if the given value is null, otherwise
-        /// return the value to the caller.
+        /// Constructs a new attribute instance for the given name.
         /// </summary>
-        /// <remarks>
-        /// This is equivalent to <see cref="CheckNotNull{T}(T, string)"/> but without the type parameter
-        /// constraint. In most cases, the constraint is useful to prevent you from calling CheckNotNull
-        /// with a value type - but it gets in the way if either you want to use it with a nullable
-        /// value type, or you want to use it with an unconstrained type parameter.
-        /// </remarks>
-        internal static T CheckNotNullUnconstrained<T>(T value, string name)
+        /// <param name="name">The name of the element in the .proto file.</param>
+        public OriginalNameAttribute(string name)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(name);
-            }
-            return value;
+            Name = ProtoPreconditions.CheckNotNull(name, nameof(name));
         }
     }
 }

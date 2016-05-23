@@ -20,9 +20,6 @@ build/msbuild*.log
 lib/Microsoft.Silverlight.Testing
 lib/NUnit
 
-# packages
-src/packages
-
 #
 # 	Untracked files
 #
@@ -36,3 +33,4 @@ mono/.libs
 mono/*.exe
 mono/*.dll
 lib/protoc.exe
+*.ncrunch*

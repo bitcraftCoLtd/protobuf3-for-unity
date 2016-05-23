@@ -1,6 +1,6 @@
 ﻿#region Copyright notice and license
 // Protocol Buffers - Google's data interchange format
-// Copyright 2015 Google Inc.  All rights reserved.
+// Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
@@ -30,35 +30,50 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
-using System.Reflection;
+using System;
 
-namespace Google.Protobuf.Compatibility
+namespace Google.Protobuf
 {
     /// <summary>
-    /// Extension methods for <see cref="PropertyInfo"/>, effectively providing
-    /// the familiar members from previous desktop framework versions while
-    /// targeting the newer releases, .NET Core etc.
+    /// Helper methods for throwing exceptions when preconditions are not met.
     /// </summary>
-    internal static class PropertyInfoExtensions
+    /// <remarks>
+    /// This class is used internally and by generated code; it is not particularly
+    /// expected to be used from application code, although nothing prevents it
+    /// from being used that way.
+    /// </remarks>
+    public static class ProtoPreconditions
     {
         /// <summary>
-        /// Returns the public getter of a property, or null if there is no such getter
-        /// (either because it's read-only, or the getter isn't public).
+        /// Throws an ArgumentNullException if the given value is null, otherwise
+        /// return the value to the caller.
         /// </summary>
-        internal static MethodInfo GetGetMethod(this PropertyInfo target)
+        public static T CheckNotNull<T>(T value, string name) where T : class
         {
-            var method = target.GetMethod;
-            return method != null && method.IsPublic ? method : null;
+            if (value == null)
+            {
+                throw new ArgumentNullException(name);
+            }
+            return value;
         }
 
         /// <summary>
-        /// Returns the public setter of a property, or null if there is no such setter
-        /// (either because it's write-only, or the setter isn't public).
+        /// Throws an ArgumentNullException if the given value is null, otherwise
+        /// return the value to the caller.
         /// </summary>
-        internal static MethodInfo GetSetMethod(this PropertyInfo target)
+        /// <remarks>
+        /// This is equivalent to <see cref="CheckNotNull{T}(T, string)"/> but without the type parameter
+        /// constraint. In most cases, the constraint is useful to prevent you from calling CheckNotNull
+        /// with a value type - but it gets in the way if either you want to use it with a nullable
+        /// value type, or you want to use it with an unconstrained type parameter.
+        /// </remarks>
+        internal static T CheckNotNullUnconstrained<T>(T value, string name)
         {
-            var method = target.SetMethod;
-            return method != null && method.IsPublic ? method : null;
+            if (value == null)
+            {
+                throw new ArgumentNullException(name);
+            }
+            return value;
         }
     }
 }

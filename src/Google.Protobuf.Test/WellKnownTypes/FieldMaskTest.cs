@@ -1,6 +1,6 @@
 ﻿#region Copyright notice and license
 // Protocol Buffers - Google's data interchange format
-// Copyright 2015 Google Inc.  All rights reserved.
+// Copyright 2016 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
@@ -30,35 +30,33 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
-using System.Reflection;
 
-namespace Google.Protobuf.Compatibility
+using NUnit.Framework;
+
+namespace Google.Protobuf.WellKnownTypes
 {
-    /// <summary>
-    /// Extension methods for <see cref="PropertyInfo"/>, effectively providing
-    /// the familiar members from previous desktop framework versions while
-    /// targeting the newer releases, .NET Core etc.
-    /// </summary>
-    internal static class PropertyInfoExtensions
+    public class FieldMaskTest
     {
-        /// <summary>
-        /// Returns the public getter of a property, or null if there is no such getter
-        /// (either because it's read-only, or the getter isn't public).
-        /// </summary>
-        internal static MethodInfo GetGetMethod(this PropertyInfo target)
+        [Test]
+        [TestCase("foo__bar")]
+        [TestCase("foo_3_ar")]
+        [TestCase("fooBar")]
+        public void ToString_Invalid(string input)
         {
-            var method = target.GetMethod;
-            return method != null && method.IsPublic ? method : null;
+            var mask = new FieldMask { Paths = { input } };
+            var text = mask.ToString();
+            // More specific test below
+            Assert.That(text, Is.StringContaining("@warning"));
+            Assert.That(text, Is.StringContaining(input));
         }
 
-        /// <summary>
-        /// Returns the public setter of a property, or null if there is no such setter
-        /// (either because it's write-only, or the setter isn't public).
-        /// </summary>
-        internal static MethodInfo GetSetMethod(this PropertyInfo target)
+        [Test]
+        public void ToString_Invalid_Precise()
         {
-            var method = target.SetMethod;
-            return method != null && method.IsPublic ? method : null;
+            var mask = new FieldMask { Paths = { "x", "foo__bar", @"x\y" } };
+            Assert.AreEqual(
+                "{ \"@warning\": \"Invalid FieldMask\", \"paths\": [ \"x\", \"foo__bar\", \"x\\\\y\" ] }",
+                mask.ToString());
         }
     }
 }
