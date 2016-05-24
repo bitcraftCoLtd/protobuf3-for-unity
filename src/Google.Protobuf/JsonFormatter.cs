@@ -900,10 +900,11 @@ namespace Google.Protobuf
             }
 
             private static Dictionary<object, string> GetNameMapping(System.Type enumType) =>
-                enumType.GetType().DeclaredFields
+                enumType.GetFields()
                     .Where(f => f.IsStatic)
                     .ToDictionary(f => f.GetValue(null),
-                                  f => f.GetCustomAttributes<OriginalNameAttribute>()
+                                  f => f.GetCustomAttributes(false)
+                                        .OfType<OriginalNameAttribute>()
                                         .FirstOrDefault()
                                         // If the attribute hasn't been applied, fall back to the name of the field.
                                         ?.Name ?? f.Name);
