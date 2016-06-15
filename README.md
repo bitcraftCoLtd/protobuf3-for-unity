@@ -1,3 +1,16 @@
+Modified to be compatible with the Unity runtime
+================================================
+
+- The project has been transformed into a regular Class Library from a Portable Class Library.
+- A few compiler errors have been fixed.
+- A custom implementation of the ReadOnlyDictionary class has been added.
+
+All the unit tests are green.
+
+Compatible with the protoc [v3.0.0-beta-3](https://github.com/google/protobuf/tree/v3.0.0-beta-3)
+
+From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0-beta-3/csharp/README.md):
+
 This directory contains the C# Protocol Buffers runtime library.
 
 Status: Beta - ready for external testing
