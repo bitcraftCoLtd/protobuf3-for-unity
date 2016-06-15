@@ -7,6 +7,8 @@ Modified to be compatible with the Unity runtime
 
 All the unit tests are green.
 
+Compatible with the protoc [v3.0.0-beta-2](https://github.com/google/protobuf/tree/v3.0.0-beta-2)
+
 From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0-beta-2/csharp/README.md):
 
 This directory contains the C# Protocol Buffers runtime library.
