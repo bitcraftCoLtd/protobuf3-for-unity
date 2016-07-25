@@ -1,15 +1,13 @@
-Modified to be compatible with the Unity runtime
-================================================
+The Google.Protobuf/project.json file was modified to target .NET 3.5
 
-- The project has been transformed into a regular Class Library from a Portable Class Library.
-- A few compiler errors have been fixed.
-- A custom implementation of the ReadOnlyDictionary class has been added.
+To build the library, install [.NET Core](https://www.microsoft.com/net/core) and run the `build_package.bat` script.
+The .NET 3.5 Google.Protobuf.dll will be output in src\Google.Protobuf\bin\Release\net35
 
 All the unit tests are green.
 
-Compatible with the protoc [v3.0.0-beta-3](https://github.com/google/protobuf/tree/v3.0.0-beta-3)
+Compatible with the protoc [v3.0.0-beta-4](https://github.com/google/protobuf/tree/v3.0.0-beta-4)
 
-From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0-beta-3/csharp/README.md):
+From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0-beta-4/csharp/README.md):
 
 This directory contains the C# Protocol Buffers runtime library.
 
