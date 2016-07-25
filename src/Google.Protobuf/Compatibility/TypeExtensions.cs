@@ -33,6 +33,7 @@
 using System;
 using System.Reflection;
 
+#if !DOTNET35
 namespace Google.Protobuf.Compatibility
 {
     /// <summary>
@@ -46,20 +47,11 @@ namespace Google.Protobuf.Compatibility
     internal static class TypeExtensions
     {
         /// <summary>
-        /// Returns true if the target type is a value type, including a nullable value type or an enum, or false
-        /// if it's a reference type (class, delegate, interface - including System.ValueType and System.Enum).
-        /// </summary>
-        internal static bool IsValueType(this Type target)
-        {
-            return target.IsValueType;
-        }
-
-        /// <summary>
         /// See https://msdn.microsoft.com/en-us/library/system.type.isassignablefrom
         /// </summary>
         internal static bool IsAssignableFrom(this Type target, Type c)
         {
-            return target.IsAssignableFrom(c);
+            return target.GetTypeInfo().IsAssignableFrom(c.GetTypeInfo());
         }
 
         /// <summary>
@@ -72,12 +64,13 @@ namespace Google.Protobuf.Compatibility
             // GetDeclaredProperty only returns properties declared in the given type, so we need to recurse.
             while (target != null)
             {
-                var ret = target.GetProperty(name);
-                if (ret != null && ((ret.CanRead && ret.GetGetMethod().IsPublic) || (ret.CanWrite && ret.GetSetMethod().IsPublic)))
+                var typeInfo = target.GetTypeInfo();
+                var ret = typeInfo.GetDeclaredProperty(name);
+                if (ret != null && ((ret.CanRead && ret.GetMethod.IsPublic) || (ret.CanWrite && ret.SetMethod.IsPublic)))
                 {
                     return ret;
                 }
-                target = target.BaseType;
+                target = typeInfo.BaseType;
             }
             return null;
         }
@@ -98,14 +91,16 @@ namespace Google.Protobuf.Compatibility
             // GetDeclaredMethod only returns methods declared in the given type, so we need to recurse.
             while (target != null)
             {
-                var ret = target.GetMethod(name);
+                var typeInfo = target.GetTypeInfo();
+                var ret = typeInfo.GetDeclaredMethod(name);
                 if (ret != null && ret.IsPublic)
                 {
                     return ret;
                 }
-                target = target.BaseType;
+                target = typeInfo.BaseType;
             }
             return null;
         }
     }
 }
+#endif
