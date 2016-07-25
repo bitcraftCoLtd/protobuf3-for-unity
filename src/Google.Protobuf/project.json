@@ -43,6 +43,7 @@
     // project without asking for myriad other dependencies.
     "net45": {
     },
+    "net35": { "buildOptions": { "define": ["DOTNET35"] } },
     "netstandard1.0": {
       "dependencies": {
         "System.Collections": "4.0.11",
