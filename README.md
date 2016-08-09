@@ -5,9 +5,9 @@ The .NET 3.5 Google.Protobuf.dll will be output in src\Google.Protobuf\bin\Relea
 
 All the unit tests are green.
 
-Compatible with the protoc [v3.0.0-beta-4](https://github.com/google/protobuf/tree/v3.0.0-beta-4)
+Compatible with the protoc [v3.0.0](https://github.com/google/protobuf/tree/v3.0.0)
 
-From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0-beta-4/csharp/README.md):
+From the original [README.md](https://github.com/google/protobuf/blob/v3.0.0/csharp/README.md):
 
 This directory contains the C# Protocol Buffers runtime library.
 
