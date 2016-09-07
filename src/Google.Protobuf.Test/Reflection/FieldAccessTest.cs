@@ -151,7 +151,7 @@ namespace Google.Protobuf.Reflection
         {
             IMessage message = SampleMessages.CreateFullTestAllTypes();
             var fields = message.Descriptor.Fields;
-            Assert.Throws<InvalidCastException>(() => fields[TestAllTypes.SingleBoolFieldNumber].Accessor.SetValue(message, "This isn't a bool"));
+            Assert.Throws<ArgumentException>(() => fields[TestAllTypes.SingleBoolFieldNumber].Accessor.SetValue(message, "This isn't a bool"));
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace Google.Protobuf.Reflection
         {
             IMessage message = SampleMessages.CreateFullTestAllTypes();
             var fields = message.Descriptor.Fields;
-            Assert.Throws<InvalidCastException>(() => fields[TestAllTypes.SingleBoolFieldNumber].Accessor.GetValue(new TestMap()));
+            Assert.Throws<System.Reflection.TargetException>(() => fields[TestAllTypes.SingleBoolFieldNumber].Accessor.GetValue(new TestMap()));
         }
 
         [Test]
